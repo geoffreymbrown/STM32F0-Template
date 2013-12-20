@@ -8,38 +8,36 @@ int main(void)
 {
   GPIO_InitTypeDef  GPIO_InitStructure;
   int n = 0;
-  int button;
 
   // Initialize GPIO clock  
   // see stm32f0xx_rcc.h
 
-  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC|RCC_AHBPeriph_GPIOA, ENABLE);
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 
-  // Initialize LD3 Pin
+  // Initialize LED pins
   // see stm32f0xx_gpio.h
+
+  GPIO_StructInit(&GPIO_InitStructure);
+
+  // Pin PC9
 
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
   GPIO_Init(GPIOC, &GPIO_InitStructure);
 
+  // Pin PC8
+
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
   GPIO_Init(GPIOC, &GPIO_InitStructure);
 
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-  GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-  /* main while      */
-
   while(1)
   {
-    delay();
-    button = GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0);
     n++;
-    GPIO_WriteBit(GPIOC, GPIO_Pin_8, n & 1 ? Bit_SET : Bit_RESET);
-    GPIO_WriteBit(GPIOC, GPIO_Pin_9, (n&4) && button ? Bit_SET : Bit_RESET);
+    delay();
+
+    GPIO_WriteBit(GPIOC, GPIO_Pin_8, (n&1) ? Bit_SET : Bit_RESET);
+    GPIO_WriteBit(GPIOC, GPIO_Pin_9, (n&4) ? Bit_SET : Bit_RESET);
   }
 }
 

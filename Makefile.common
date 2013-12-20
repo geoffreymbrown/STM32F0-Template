@@ -4,11 +4,11 @@ ELF=$(notdir $(CURDIR)).elf
 
 # Tool path
 
-TOOLROOT=/l/arm/gcc-arm-none-eabi/bin
+TOOLROOT=/l/arm/arm-none-eabi/bin
 
 # Library path
 
-LIBROOT=/l/arm/STM32F0-Discovery_FW_V1.0.0/Libraries
+LIBROOT=/l/arm/STM32F0xx/Libraries
 
 # Tools
 
@@ -20,7 +20,7 @@ AS=$(TOOLROOT)/arm-none-eabi-as
 # Code Paths
 
 CORE=$(LIBROOT)/CMSIS
-DEVICE=$(LIBROOT)/CMSIS/ST/STM32F0xx
+DEVICE=$(LIBROOT)/CMSIS/Device/ST/STM32F0xx
 PERIPH=$(LIBROOT)/STM32F0xx_StdPeriph_Driver
 
 # Search path for standard files
@@ -35,9 +35,9 @@ vpath %.c $(DEVICE)
 
 #  Processor specific
 
-PTYPE = STM32F0XX
+PTYPE = STM32F0XX_MD
 LDSCRIPT = $(TEMPLATEROOT)/stm32f0xx.ld
-STARTUP= startup_stm32f0xx.o system_stm32f0xx.o 
+STARTUP=  startup_stm32f0xx.o system_stm32f0xx.o 
 
 # Compilation Flags
 
@@ -46,8 +46,7 @@ FULLASSERT = -DUSE_FULL_ASSERT
 LDFLAGS+= -T$(LDSCRIPT) -mthumb -mcpu=cortex-m0
 CFLAGS+= -mcpu=cortex-m0 -mthumb 
 CFLAGS+= -I$(TEMPLATEROOT) -I$(CORE)/Include -I$(DEVICE)/Include -I$(CORE) -I$(PERIPH)/inc -I.
-CFLAGS+= -DUSE_STDPERIPH_DRIVER $(FULLASSERT)
-# -D$(PTYPE) 
+CFLAGS+= -DUSE_STDPERIPH_DRIVER $(FULLASSERT) -D$(PTYPE) 
 
 # Build executable 
 
