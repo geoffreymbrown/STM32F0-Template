@@ -25,3 +25,27 @@ To execute:
 I recommend the st-util program as a gdb server 
 
 https://github.com/texane/stlink
+
+==================
+
+The standard peripheral library can be difficult to crack.  Here are two hints to
+get you started.
+
+1) Use doxygen to generate documentation
+   -- cd to the directory containing the standard peripheral library
+   -- generate a config file (you can edit this, but don't need to)
+        doxygen -g config_file
+   -- generate the documentation
+        doxygen config_file
+
+   -- this will genererate html and latex directories (you can modify the config
+      file to turn off either of these).  Open html/index.html to see the 
+      documentation
+
+2) I wrote a lab manual for a similar processor (the stm32f100), but beware, there
+   are many small differences in the standard peripheral library. Nevertheless,
+   the big picture is the same.
+
+   http://www.cs.indiana.edu/~geobrown/book.pdf
+
+
