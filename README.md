@@ -11,7 +11,18 @@ To test:
 
    (1) install the toolchain and libarary.
 
-   (2) change the TOOLROOT and LIBROOT paths in Makefile.common
+   (2) change the TOOLROOT and LIBROOT paths in Makefile.common  
+   
+       you may need to change
+       
+       DEVICE=$(LIBROOT)/CMSIS/Device/ST/STM32F0xx
+       
+       to
+       
+       DEVICE=$(LIBROOT)/CMSIS/ST/STM32F0xx
+       
+       if you are using the (older) version of the peripheral library distributed with the original F0 discovery board.  
+       ST has changed the file layout slightly)
 
    (3) cd to Demo
 
